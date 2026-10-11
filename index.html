@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Arcade</title>
+    <style>
+      :root {
+        --bg: #d8771c;
+        --panel: rgb(255, 0, 0);
+        --primary: #05fd3b;
+        --text: #ffee00;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        height: 100%;
+        min-height: 100%;
+        background: radial-gradient(circle at top, #1e293b, var(--bg) 52%);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .start-screen {
+        width: min(88vw, 760px);
+        background: var(--panel);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        padding: 42px 32px;
+        text-align: center;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        letter-spacing: 0.08em;
+        color: var(--primary);
+      }
+
+      p {
+        margin: 0 auto 30px;
+        max-width: 540px;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        line-height: 1.6;
+        color: rgba(229, 238, 251, 0.9);
+      }
+
+      .play-btn {
+        display: inline-block;
+        padding: 18px 44px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), #38bdf8);
+        color: #03111d;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 12px 28px rgba(56, 189, 248, 0.45);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .play-btn:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 16px 34px rgba(56, 189, 248, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="start-screen">
+      <h1>ARENA DUEL</h1>
+      <p>Run, aim, and outshoot your rival in a fast one-on-one arena battle.</p>
+      <a class="play-btn" href="game.html">Play</a>
+    </div>
+  </body>
+</html>
