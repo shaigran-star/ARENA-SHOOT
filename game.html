@@ -40,6 +40,34 @@
         gap: 12px;
       }
 
+      .menu-row {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .menu-button {
+        display: inline-block;
+        padding: 10px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        background: var(--panel);
+        color: var(--text);
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.15s ease, transform 0.15s ease;
+      }
+
+      .menu-button:hover {
+        background: rgba(255, 123, 0, 0.95);
+        transform: translateY(-1px);
+      }
+
+      .menu-button:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+
       .hud {
         display: flex;
         justify-content: space-between;
@@ -177,10 +205,14 @@
   </head>
   <body>
       <div class="game-shell">
+        <div class="menu-row">
+          <a class="menu-button" href="index.html">Back to Menu</a>
+        </div>
         <div class="hud">
           <div class="stats">
             <span>HP: <strong id="playerHp">100</strong></span>
             <span>Enemy HP: <strong id="enemyHp">100</strong></span>
+            <span>Time: <strong id="gameTimer">00:00</strong></span>
           </div>
           <div class="health-bar" aria-label="health bar">
             <div id="healthFill" class="health-fill"></div>
@@ -210,6 +242,7 @@
         const touchKnob = document.getElementById('touchKnob');
         const playerHpEl = document.getElementById('playerHp');
         const enemyHpEl = document.getElementById('enemyHp');
+        const gameTimerEl = document.getElementById('gameTimer');
         const healthFill = document.getElementById('healthFill');
         const gameOverlay = document.getElementById('gameOverlay');
         const overlayTitle = document.getElementById('overlayTitle');
@@ -228,6 +261,7 @@
 
         let gameState = 'playing';
         let lastTime = 0;
+        let elapsedTime = 0;
         let player;
         let enemy;
         let bullets = [];
@@ -263,6 +297,7 @@
 
           bullets = [];
           particles = [];
+          elapsedTime = 0;
           gameState = 'playing';
           gameOverlay.classList.remove('show');
           updateHud();
@@ -271,6 +306,9 @@
         function updateHud() {
           playerHpEl.textContent = Math.max(0, Math.ceil(player.hp));
           enemyHpEl.textContent = Math.max(0, Math.ceil(enemy.hp));
+          const minutes = Math.floor(elapsedTime / 60);
+          const seconds = Math.floor(elapsedTime % 60);
+          gameTimerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
           healthFill.style.width = `${(player.hp / player.maxHp) * 100}%`;
         }
 
@@ -540,6 +578,7 @@
             return;
           }
 
+          elapsedTime += dt;
           handlePlayerMovement(dt);
           handleEnemyAI(dt);
           updatePlayerShoot(dt);
